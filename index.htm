@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>버프스위트 연습장</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; background: #f4f4f4; }
+        .card { border: 1px solid #ddd; background: white; padding: 20px; display: inline-block; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        button { background: #0070f3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #0051bb; }
+        #status { margin-top: 20px; font-weight: bold; color: #333; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>인형</h2>
+        <p>가격: <strong>1,000,000원</strong></p>
+        <button onclick="buyItem()">구매하기</button>
+    </div>
+    <div id="status">상태: 대기 중</div>
+
+    <script>
+        async function buyItem() {
+            const statusEl = document.getElementById('status');
+            const price = 1000000;
+
+            if (price < 1000000) {
+                alert("비정상적인 가격입니다!");
+                return;
+            }
+
+            statusEl.innerText = "서버로 결제 요청 중...";
+
+            const res = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ item: "Cyano Doll", price: price })
+            });
+
+            const data = await res.json();
+            statusEl.innerText = "결과: " + data.message;
+        }
+    </script>
+</body>
+</html>
