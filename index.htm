@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>버프스위트 연습장</title>
+    <title>Shopping</title>
     <style>
         body { font-family: sans-serif; text-align: center; padding-top: 50px; background: #f4f4f4; }
         .card { border: 1px solid #ddd; background: white; padding: 20px; display: inline-block; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
@@ -13,11 +13,11 @@
 </head>
 <body>
     <div class="card">
-        <h2>인형</h2>
-        <p>가격: <strong>1,000,000원</strong></p>
-        <button onclick="buyItem()">구매하기</button>
+        <h2>Doll</h2>
+        <p>Price: <strong>1,000,000$</strong></p>
+        <button onclick="buyItem()">Buy</button>
     </div>
-    <div id="status">상태: 대기 중</div>
+    <div id="status">state: Waiting</div>
 
     <script>
         async function buyItem() {
@@ -25,11 +25,11 @@
             const price = 1000000;
 
             if (price < 1000000) {
-                alert("비정상적인 가격입니다!");
+                alert("It's an abnormal price!");
                 return;
             }
 
-            statusEl.innerText = "서버로 결제 요청 중...";
+            statusEl.innerText = "Requesting payment to server...";
 
             const res = await fetch('/api/checkout', {
                 method: 'POST',
@@ -38,7 +38,7 @@
             });
 
             const data = await res.json();
-            statusEl.innerText = "결과: " + data.message;
+            statusEl.innerText = "Result: " + data.message;
         }
     </script>
 </body>
